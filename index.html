@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haklısın Sevgilim!</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            color: #2d3436;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px 20px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2.8rem;
+            color: #d63031;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            line-height: 1.2;
+        }
+        .heart-icon {
+            font-size: 5rem;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: inline-block;
+            user-select: none;
+        }
+        .heart-icon:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+        .heart-icon:active {
+            transform: scale(0.9);
+        }
+        .quote-box {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #6c5ce7;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
+            border: 2px dashed #a29bfe;
+        }
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4);
+            transition: all 0.2s ease;
+            outline: none;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(255, 107, 107, 0.5);
+        }
+        .btn:active {
+            transform: translateY(1px);
+        }
+        .counter {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>HAKLISIN SEVGİLİM! ❤️</h1>
+        
+        <div class="heart-icon" onclick="hakliOnayla()">💋</div>
+        
+        <div class="quote-box" id="quote">
+            Butona bas ve ne kadar haklı olduğunu gör!
+        </div>
+
+        <button class="btn" onclick="hakliOnayla()">Haklı Olduğumu Onayla ✨</button>
+
+        <div class="counter">
+            Toplam Haklılık Onayı: <span id="count">0</span>
+        </div>
+    </div>
+
+    <!-- Müzik Çalar (Klasörünüzdeki oblivion.mp3 çalar) -->
+    <audio id="bg-music" loop>
+        <source src="oblivion.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const sozler = [
+            "Ne dersen de, %100 sen haklısın!",
+            "Tartışmaya bile gerek yok, sonuna kadar haklısın.",
+            "Dünyanın en haklı insanı seçildin! 🏆",
+            "Sözlerin kanun niteliğindedir sevgilim.",
+            "I'm sorry, sen her zaman doğrusunu bilirsin!",
+            "Güneş doğudan doğar, sen hep haklı çıkarsın. ☀️",
+            "Paragraf soruları bile senin kadar haklı olamaz!",
+            "Aksini iddia eden elensin, sen haklısın.",
+            "Haklılığın tescillendi, imza: Sevgilin ✍️",
+            "Evet hayatım, tam olarak senin dediğin gibi!",
+            "Sen 'paragraf çözmüyorum' diyorsan bir bildiğin vardır! 😉"
+        ];
+
+        let count = 0;
+        let musicStarted = false;
+
+        function hakliOnayla() {
+            // Konfeti efekti
+            confetti({
+                particleCount: 70,
+                spread: 60,
+                origin: { y: 0.7 }
+            });
+
+            // Rastgele söz seç
+            const randomQuote = sozler[Math.floor(Math.random() * sozler.length)];
+            document.getElementById("quote").innerText = randomQuote;
+
+            // Sayacı artır
+            count++;
+            document.getElementById("count").innerText = count;
+
+            // İlk tıklamada arka plandaki müziği de başlat
+            if (!musicStarted) {
+                const music = document.getElementById("bg-music");
+                music.play().catch(e => console.log("Müzik başlatılamadı"));
+                musicStarted = true;
+            }
+        }
+    </script>
+</body>
+</html>
